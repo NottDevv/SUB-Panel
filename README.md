@@ -113,7 +113,7 @@
       <img src="images/13.jpg" alt="تصویر ۳">
     </td>
     <td width="50%">
-      <img src="images/14.jpg" alt="تصویر ۴">
+      <img src="images/15.jpg" alt="تصویر ۴">
     </td>
   </tr>
    <tr>
