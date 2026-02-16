@@ -102,18 +102,18 @@
 <table>
   <tr>
     <td width="50%">
-      <img src="images/1.png" alt="تصویر ۱">
+      <img src="images/11.png" alt="تصویر ۱">
     </td>
     <td width="50%">
-      <img src="images/2.png" alt="تصویر ۲">
+      <img src="images/12.png" alt="تصویر ۲">
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <img src="images/3.png" alt="تصویر ۳">
+      <img src="images/13.png" alt="تصویر ۳">
     </td>
     <td width="50%">
-      <img src="images/4.png" alt="تصویر ۴">
+      <img src="images/14.png" alt="تصویر ۴">
     </td>
   </tr>
 </table>
