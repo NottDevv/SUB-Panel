@@ -116,6 +116,14 @@
       <img src="images/14.png" alt="تصویر ۴">
     </td>
   </tr>
+   <tr>
+    <td width="50%">
+      <img src="images/15.png" alt="تصویر ۳">
+    </td>
+    <td width="50%">
+      <img src="images/16.png" alt="تصویر ۴">
+    </td>
+  </tr>
 </table>
 
 ## ❤️ حمایت و توسعه
