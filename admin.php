@@ -177,7 +177,7 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
     <div id="addUser" class="tab-content">
         <div class="user-card" style="padding: 30px;">
             <h4>ساخت یوزر جدید</h4>
-            <form method="POST" style="display:flex; flex-direction:column; gap:15px;">
+            <form method="POST" style="display:flex; flex-direction:column; max-width: 400px; margin: 0 auto; gap:15px;">
                 <input type="text" name="new_user" class="input-name" style="width:100%; text-align:right;" placeholder="نام کاربری" required>
                 <div class="pass-container">
                     <input type="password" name="new_pass" id="newPass" class="input-name" style="width:100%; text-align:right;" placeholder="رمز عبور" required>
@@ -193,7 +193,7 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
         <div class="user-card" style="padding: 30px; border-color: #ffc107;">
             <h4 style="color: #ffc107;">تنظیمات حساب مدیریت</h4>
             <?php if($admin_error): ?> <div style="background:#dc3545; color:white; padding:10px; border-radius:8px; margin-bottom:15px;"><?php echo $admin_error; ?></div> <?php endif; ?>
-            <form method="POST" style="display:flex; flex-direction:column; gap:15px;">
+            <form method="POST" style="display:flex; flex-direction:column; max-width: 400px; margin: 0 auto; gap:15px;">
                 <label>نام کاربری ادمین:</label>
                 <input type="text" name="admin_user" class="input-name" style="width:100%; text-align:right;" value="<?php echo $current_admin; ?>" required>
                 <label>رمز عبور جدید ادمین:</label>
