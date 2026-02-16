@@ -231,7 +231,7 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
     <div class="admin-note" style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; color: #ffc107; padding: 15px; margin: 30px auto; width: 95%; max-width: 900px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
         <span style="font-size: 1.5rem;">💡</span>
         <div>
-            <strong>نکته:</strong> آدرس اختصاصی هر کاربر در ابتدای لیست لینک‌های او نمایش داده شده است. آن را به همراه رمز عبور به کاربر تحویل دهید.
+            <strong></strong> آدرس اختصاصی هر کاربر در ابتدای لیست لینک‌های او نمایش داده شده است. آن را به همراه رمز عبور به کاربر تحویل دهید.
         </div>
     </div>
 
