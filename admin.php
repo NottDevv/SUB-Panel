@@ -156,7 +156,7 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
         <div>
             <strong>نکته:</strong> برای دسترسی کاربر به لینک‌های ساب، آدرس زیر و پسورد تعیین شده را به او تحویل دهید:
             <br>
-            <span style="background: rgba(0, 0, 0, 0.3); padding: 4px 8px; border-radius: 5px; font-family: monospace; direction: ltr; display: inline-block; margin-top: 5px; color: #fff;">https://conf.jabidl.ir/u/(USERNAME)</span>
+            <span style="background: rgba(0, 0, 0, 0.3); padding: 4px 8px; border-radius: 5px; font-family: monospace; direction: ltr; display: inline-block; margin-top: 5px; color: #fff;">https://your-domain-name/u/(USERNAME)</span>
         </div>
     </div>
 
