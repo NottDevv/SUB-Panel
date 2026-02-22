@@ -75,6 +75,12 @@ if (isset($_GET['delete_link'])) {
     header("Location: admin"); exit;
 }
 
+// اضافه شدن عملیات ویرایش لینک
+if (isset($_POST['edit_link_action'])) {
+    $db->prepare("UPDATE links SET title = ?, url = ? WHERE id = ?")->execute([$_POST['edit_link_title'], $_POST['edit_link_url'], $_POST['link_id']]);
+    header("Location: admin"); exit;
+}
+
 // دریافت ادمین فعلی و لیست یوزرها (مرتب شده الفبایی)
 $current_admin = $db->query("SELECT username FROM users WHERE role = 'admin'")->fetchColumn();
 $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username ASC")->fetchAll();
@@ -129,8 +135,8 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                     <span class="user-name-text"><?php echo $u['username']; ?></span>
                 </div>
                 <div class="user-actions" onclick="event.stopPropagation()">
-                    <button onclick="openEditModal(<?php echo $u['id']; ?>, '<?php echo $u['username']; ?>')" class="btn-action btn-edit"><i class="fas fa-edit"></i> ویرایش</button>
-                    <a href="?delete_user=<?php echo $u['id']; ?>" class="btn-action btn-del" onclick="return confirm('حذف کاربر و تمام لینک‌ها؟')"><i class="fas fa-trash"></i> حذف</a>
+                    <button onclick="openEditModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars($u['username'], ENT_QUOTES); ?>')" class="btn-action btn-edit"><i class="fas fa-edit"></i> <span>ویرایش</span></button>
+                    <a href="?delete_user=<?php echo $u['id']; ?>" class="btn-action btn-del" onclick="return confirm('حذف کاربر و تمام لینک‌ها؟')"><i class="fas fa-trash"></i> <span>حذف</span></a>
                 </div>
             </div>
 
@@ -163,9 +169,18 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                 $links->execute([$u['id']]);
                 foreach ($links->fetchAll() as $l): ?>
                 <div class="link-row">
-                    <div class="input-name" style="background:#2c3036; border:none;"><?php echo $l['title']; ?></div>
-                    <a href="?delete_link=<?php echo $l['id']; ?>" class="btn-link-action btn-remove-link" onclick="return confirm('حذف این لینک؟')">حذف لینک</a>
-                    <div class="link-display-url"><?php echo $l['url']; ?></div>
+                    <div class="input-name" style="background:#2c3036; border:none;"><?php echo htmlspecialchars($l['title'], ENT_QUOTES); ?></div>
+                    <div class="link-display-url"><?php echo htmlspecialchars($l['url'], ENT_QUOTES); ?></div>
+                    
+                    <!-- دکمه‌های عملیات لینک (حذف و ویرایش) -->
+                    <div class="link-actions-group">
+                        <button type="button" onclick="openEditLinkModal(<?php echo $l['id']; ?>, '<?php echo htmlspecialchars(addslashes($l['title']), ENT_QUOTES); ?>', '<?php echo htmlspecialchars(addslashes($l['url']), ENT_QUOTES); ?>')" class="btn-action btn-edit">
+                            <i class="fas fa-edit"></i> <span>ویرایش</span>
+                        </button>
+                        <a href="?delete_link=<?php echo $l['id']; ?>" class="btn-action btn-del" onclick="return confirm('حذف این لینک؟')">
+                            <i class="fas fa-trash"></i> <span>حذف</span>
+                        </a>
+                    </div>
                 </div>
                 <?php endforeach; ?>
             </div>
@@ -227,6 +242,24 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
         </div>
     </div>
 
+    <!-- مودال ویرایش لینک -->
+    <div id="editLinkModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+        <div class="user-card" style="padding:20px; width:90%; max-width:400px; background:#2b3035;">
+            <h4>ویرایش لینک</h4>
+            <form method="POST">
+                <input type="hidden" name="link_id" id="edit_link_id">
+                <label>نام لینک:</label>
+                <input type="text" name="edit_link_title" id="edit_link_title" class="input-url mb-3" style="width:100%; text-align:right;" required>
+                <label>آدرس لینک:</label>
+                <input type="text" name="edit_link_url" id="edit_link_url" class="input-url mb-3" style="width:100%; direction:ltr;" required>
+                <div style="display:flex; gap:10px;">
+                    <button name="edit_link_action" class="btn-link-action btn-add" style="flex:1">ذخیره</button>
+                    <button type="button" onclick="document.getElementById('editLinkModal').style.display='none'" class="btn-link-action btn-remove-link" style="flex:1">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- باکس نکته پایین صفحه -->
     <div class="admin-note" style="background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; color: #ffc107; padding: 15px; margin: 30px auto; width: 95%; max-width: 900px; border-radius: 10px; display: flex; align-items: center; gap: 15px;">
         <span style="font-size: 1.5rem;">💡</span>
@@ -251,6 +284,15 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
             document.getElementById('edit_uid').value = id;
             document.getElementById('edit_name').value = name;
         }
+        
+        // تابع باز کردن پاپ‌آپ ویرایش لینک
+        function openEditLinkModal(id, title, url) {
+            document.getElementById('editLinkModal').style.display = 'flex';
+            document.getElementById('edit_link_id').value = id;
+            document.getElementById('edit_link_title').value = title;
+            document.getElementById('edit_link_url').value = url;
+        }
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text);
             alert('کپی شد!');
