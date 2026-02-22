@@ -15,9 +15,9 @@ $stmt->execute([$req_user]);
 $u = $stmt->fetch();
 
 // --- ۲. حل مشکل صفحه سفید (اگر یوزر وجود نداشت) ---
-if (!$u) { 
+if (!$u) {
     echo "<!DOCTYPE html><html lang='fa' dir='rtl'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='../style.css'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css'></head><body><main style='display:flex; justify-content:center; align-items:center; height:100vh;'><div class='glass-panel text-center' style='width:90%; max-width:400px;'><h3 class='text-white'>نام کاربر اشتباه است</h3></div></main></body></html>";
-    exit; 
+    exit;
 }
 
 // Login Logic
@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_auth_'.$req_user])) {
     </script>
 </body>
 </html>
-<?php exit; } 
+<?php exit; }
 
 $links = $db->prepare("SELECT * FROM links WHERE user_id = ? ORDER BY title ASC");
 $links->execute([$u['id']]);
