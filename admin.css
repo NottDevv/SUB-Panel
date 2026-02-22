@@ -111,7 +111,7 @@ body {
     font-size: 0.8rem;
     color: #aaa;
 }
-.user-body.open + .user-header .arrow-icon, 
+.user-body.open + .user-header .arrow-icon,
 .user-card.active .arrow-icon { transform: rotate(180deg); background: var(--primary); color: white; }
 
 /* دکمه‌های عملیاتی یوزر (ویرایش/حذف یوزر) */
