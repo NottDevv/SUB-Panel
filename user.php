@@ -88,22 +88,28 @@ $links->execute([$u['id']]);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
     <style>
         .user-nav { background: rgba(0,0,0,0.3); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(10px); }
-        .btn-header { padding: 8px 15px; border-radius: 8px; text-decoration: none; color: white; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .btn-header { padding: 8px 15px; border-radius: 8px; text-decoration: none; color: white; font-size: 0.9rem; display: inline-flex; align-items: center; transition: 0.3s; }
         .btn-lang-user { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); }
         .btn-logout-user { background: var(--red); }
         .btn-logout-user:hover { background: #b02a37; }
         .user-badge-container { max-width: 250px; margin: 20px auto; }
-        @media (max-width: 576px) { .user-nav { padding: 10px; } .btn-header span.d-none { display: none; } .page-title { font-size: 1.2rem; } }
+        @media (max-width: 576px) { .user-nav { padding: 10px; } .btn-header span.d-none { display: none; } }
     </style>
 </head>
 <body>
     <nav class="user-nav">
         <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-header btn-lang-user">
-            <span><?php echo _t('flag'); ?></span> <span class="d-none d-sm-inline"><?php echo _t('lang_name'); ?></span>
+            <span><?php echo _t('flag'); ?></span> <span class="d-none d-sm-inline ms-2"><?php echo _t('lang_name'); ?></span>
         </a>
         <h5 class="m-0 text-white d-none d-md-block"><?php echo _t('welcome'); ?></h5>
+        
+        <!-- دکمه خروج اصلاح شده (متصل به ترجمه) -->
         <a href="?action=logout" class="btn-header btn-logout-user">
-            <span>Logout</span> <i class="fas fa-sign-out-alt"></i>
+            <?php if($dir == 'rtl'): ?>
+                <span><?php echo _t('logout'); ?></span> <i class="fas fa-sign-out-alt ms-2"></i>
+            <?php else: ?>
+                <i class="fas fa-sign-out-alt me-2"></i> <span><?php echo _t('logout'); ?></span>
+            <?php endif; ?>
         </a>
     </nav>
 
