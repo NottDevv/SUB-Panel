@@ -10,3 +10,5 @@ RewriteRule ^logout$ logout.php [L]
     Order allow,deny
     Deny from all
 </Files>
+
+Options All -Indexes
