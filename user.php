@@ -16,9 +16,9 @@ $u = $stmt->fetch();
 
 $bs_css = ($dir == 'rtl') ? 'bootstrap.rtl.min.css' : 'bootstrap.min.css';
 
-if (!$u) { 
+if (!$u) {
     echo "<!DOCTYPE html><html lang='{$lang}' dir='{$dir}'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='../style.css'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/{$bs_css}'></head><body><main style='display:flex; justify-content:center; align-items:center; height:100vh;'><div class='glass-panel text-center' style='width:90%; max-width:400px;'><h3 class='text-white'>" . _t('not_found') . "</h3></div></main></body></html>";
-    exit; 
+    exit;
 }
 
 if (isset($_POST['user_pass'])) {
@@ -73,7 +73,7 @@ if (!isset($_SESSION['user_auth_'.$req_user])) {
     </script>
 </body>
 </html>
-<?php exit; } 
+<?php exit; }
 
 $links = $db->prepare("SELECT * FROM links WHERE user_id = ? ORDER BY title ASC");
 $links->execute([$u['id']]);
