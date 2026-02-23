@@ -5,7 +5,7 @@
 
 <div align="center">
 
-# 🚀 Subscription Link Management System
+# 🚀 Subscription Link Management System 🚀
 
 **A lightweight, fast, and secure system for managing users and subscription links (V2Ray, Xray, etc.)**
 
