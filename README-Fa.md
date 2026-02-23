@@ -1,6 +1,6 @@
 <div align="left" dir="ltr">
-  <a href="README.md"><img src="https://img.shields.io/badge/Persian-2ea44f?style=for-the-badge" alt="Persian"></a>
-  <a href="README-en.md"><img src="https://img.shields.io/badge/English-007ec6?style=for-the-badge" alt="English"></a>
+  <a href="README.md"><img src="https://img.shields.io/badge/English-007ec6?style=for-the-badge" alt="English"></a>
+  <a href="README-Fa.md"><img src="https://img.shields.io/badge/Persian-2ea44f?style=for-the-badge" alt="Persian"></a>
 </div>
 
 <div align="center">
