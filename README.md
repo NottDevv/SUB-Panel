@@ -1,3 +1,8 @@
+<div align="left" dir="ltr">
+  <a href="README.md"><img src="https://img.shields.io/badge/زبان-فارسی-2ea44f?style=for-the-badge" alt="Persian"></a>
+  <a href="README-en.md"><img src="https://img.shields.io/badge/Language-English-007ec6?style=for-the-badge" alt="English"></a>
+</div>
+
 <div align="center">
 
 # 🚀 سیستم مدیریت لینک‌های ساب‌اسکریپشن 🚀      
