@@ -86,7 +86,8 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _t('admin_title'); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="admin.css">
+    <!-- اضافه شدن ترفند کش باسینگ برای جلوگیری از گیر کردن استایل در موبایل -->
+    <link rel="stylesheet" href="admin.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
@@ -131,7 +132,6 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                     <div class="link-display-url text-ltr" style="color: #6ea8fe; cursor: pointer; flex-grow:1;" onclick="window.open('<?php echo $userLink; ?>', '_blank')">
                         <?php echo $userLink; ?>
                     </div>
-                    <!-- اصلاح دکمه کپی (آیکون اول، متن دوم) -->
                     <button onclick="copyToClipboard('<?php echo $userLink; ?>')" class="btn-link-action btn-add" style="background: #198754;">
                         <i class="fas fa-copy"></i> <span><?php echo _t('copy'); ?></span>
                     </button>
@@ -141,7 +141,6 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                     <input type="hidden" name="user_id" value="<?php echo $u['id']; ?>">
                     <input type="text" name="title" class="input-name text-dir-auto" placeholder="<?php echo _t('link_name'); ?>" required>
                     <input type="text" name="url" class="input-url text-ltr" placeholder="<?php echo _t('link_sub'); ?>" required>
-                    <!-- اضافه شدن آیکون به دکمه افزودن لینک برای زیبایی بیشتر -->
                     <button name="add_link" class="btn-link-action btn-add">
                         <i class="fas fa-plus"></i> <span><?php echo _t('add_link_btn'); ?></span>
                     </button>
