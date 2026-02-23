@@ -8,7 +8,7 @@ if (isset($_GET['setlang'])) {
     exit;
 }
 
-$lang = $_SESSION['lang'] ?? 'fa';
+$lang = $_SESSION['lang'] ?? 'en';
 $dir = ($lang == 'fa') ? 'rtl' : 'ltr';
 
 $translations = [
