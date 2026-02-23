@@ -9,13 +9,14 @@
     --dark-badge: rgba(0, 0, 0, 0.6);
 }
 
+html[dir="rtl"] body { direction: rtl; text-align: right; font-family: 'Vazirmatn', sans-serif; }
+html[dir="ltr"] body { direction: ltr; text-align: left; font-family: 'Montserrat', sans-serif; }
+
 body {
     margin: 0;
-    font-family: 'Vazirmatn', sans-serif;
     background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('bg.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff !important;
-    direction: rtl;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -23,115 +24,62 @@ body {
 
 main { flex: 1; width: 100%; padding-bottom: 80px; }
 
-/* کادر شیشه‌ای */
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--glass-border);
     border-radius: 16px;
-    padding: 25px; /* کمی پدینگ بیشتر برای خوشگلی */
+    padding: 25px;
     margin-bottom: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     color: #fff !important;
 }
 
-/* ورودی‌ها */
 .input-glass {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    padding: 12px 12px 12px 40px; /* فضای خالی سمت چپ برای آیکون چشم */
-    color: white !important;
-    width: 100%;
-    text-align: center;
-    height: 50px;
-    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.6); border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px; color: white !important; width: 100%; height: 50px; font-size: 1rem;
 }
 .input-glass:focus { outline: 2px solid var(--orange); border-color: transparent; }
 
-/* نگهدارنده پسورد برای آیکون چشم */
-.password-wrapper {
-    position: relative;
-    width: 100%;
-}
-.toggle-password {
-    position: absolute;
-    left: 15px; /* سمت چپ چون RTL است */
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #aaa;
-    font-size: 1.1rem;
-    z-index: 10;
-}
-.toggle-password:hover { color: #fff; }
+.pass-wrapper { position: relative; width: 100%; }
+.toggle-eye { position: absolute; top: 50%; transform: translateY(-50%); cursor: pointer; color: #aaa; z-index: 10; font-size: 1.1rem;}
+.toggle-eye:hover { color: #fff; }
 
-/* باکس نام یوزر و لینک */
+html[dir="rtl"] .toggle-eye { left: 15px; right: auto; }
+html[dir="rtl"] .input-glass { padding-left: 45px !important; padding-right: 15px !important; }
+
+html[dir="ltr"] .toggle-eye { right: 15px; left: auto; }
+html[dir="ltr"] .input-glass { padding-right: 45px !important; padding-left: 15px !important; }
+
 .name-badge {
-    background: var(--dark-badge);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #fff !important;
-    border-radius: 10px;
-    padding: 0 20px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    width: 100%;
-    font-size: 1.1rem;
+    background: var(--dark-badge); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff !important; border-radius: 10px; padding: 0 20px; height: 50px;
+    display: flex; align-items: center; justify-content: center; font-weight: bold; width: 100%; font-size: 1.1rem;
 }
+html[dir="ltr"] .name-badge { font-family: 'Montserrat', sans-serif; font-size: 1rem; }
 
-/* دکمه‌ها */
 .btn-custom {
-    border: none;
-    color: white !important;
-    border-radius: 10px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: 0.2s;
-    text-decoration: none !important;
+    border: none; color: white !important; border-radius: 10px; font-weight: bold;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; text-decoration: none !important;
 }
 .btn-action { height: 40px; font-size: 0.9rem; }
 .btn-lg-custom { height: 50px; font-size: 1rem; }
 .btn-orange { background: var(--orange); }
 .btn-red { background: var(--red); }
-
 .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
+
+/* کلید جادویی برای فاصله استاندارد آیکون و متن در کل سایت */
+.me-2 { margin-inline-end: 8px; }
 
 .page-title { color: #f0f0f0 !important; font-weight: 800; margin-bottom: 25px; text-align: center; }
 
-/* فوتر */
 footer {
-    background: rgba(0, 0, 0, 0.95);
-    padding: 15px 0;
-    text-align: center;
-    width: 100%;
-    position: fixed; bottom: 0; left: 0; z-index: 100;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0, 0, 0, 0.95); padding: 15px 0; text-align: center;
+    width: 100%; position: fixed; bottom: 0; left: 0; z-index: 100; border-top: 1px solid rgba(255,255,255,0.1);
 }
 .footer-box { display: inline-flex; flex-direction: column; align-items: center; margin: 0 20px; }
 .footer-box i { font-size: 1.5rem; color: var(--orange); margin-bottom: 5px; }
 .footer-box span { font-size: 0.8rem; font-family: 'Montserrat', sans-serif; color: #fff; }
 
-/* تنظیمات جهت متن داینامیک */
-body[dir="ltr"] {
-    text-align: left;
-}
-body[dir="rtl"] {
-    text-align: right;
-}
-
-/* جابجایی آیکون چشم در حالت انگلیسی */
-body[dir="ltr"] .toggle-eye {
-    left: auto;
-    right: 12px;
-}
-body[dir="ltr"] .pass-container input {
-    padding-left: 15px !important;
-    padding-right: 45px !important;
-}
+.flag-emoji { font-family: "Twemoji Mozilla", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; }
