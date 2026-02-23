@@ -143,6 +143,4 @@
 
 این پروژه با هدف ساده‌سازی، زیبایی و امنیت در اشتراک‌گذاری کانفیگ‌ها طراحی شده است. اگر این سیستم برای شما مفید بود، می‌توانید با دادن ⭐️ (Star) در گیت‌هاب از آن حمایت کنید.
   **Made with Love & PHP**  
-  <div align="left">
    [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-</div>
