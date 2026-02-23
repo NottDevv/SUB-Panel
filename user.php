@@ -36,16 +36,41 @@ if (!isset($_SESSION['user_auth_'.$req_user])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $req_user; ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../style.css">
+    <!-- ضد کش برای استایل کاربر -->
+    <link rel="stylesheet" href="../style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
+    <style>
+        .user-header-glass { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .header-side { flex: 1; display: flex; align-items: center; }
+        .header-side-end { justify-content: flex-end; }
+        .header-center { flex: 1; text-align: center; }
+        .header-center h3 { margin: 0; font-size: 1.2rem; color: white; font-weight: bold; }
+        .btn-header { text-decoration: none !important; padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: bold; transition: 0.3s; color: white !important; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 95px; border: none; }
+        .btn-lang { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .btn-lang:hover { background: rgba(255, 255, 255, 0.2); }
+        .btn-logout-user { background: var(--red); color: white; }
+        @media (max-width: 768px) {
+            .user-header-glass { padding: 10px; }
+            .header-center h3 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .btn-header { padding: 8px 10px; font-size: 0.85rem; min-width: 95px; }
+            .btn-header .lang-text { display: inline; }
+        }
+    </style>
 </head>
 <body>
-    <main style="justify-content: center; display: flex; align-items: center; min-height: 100vh;" class="position-relative">
-        <div class="position-absolute top-0 end-0 p-3">
-             <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-custom px-3 py-2" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-                 <span class="flag-emoji" style="font-size: 1.3rem;"><?php echo _t('flag'); ?></span> <span class="ms-2"><?php echo _t('lang_name'); ?></span>
-             </a>
+    <header class="user-header-glass">
+        <div class="header-side">
+            <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-header btn-lang">
+                <span class="flag-emoji"><?php echo _t('flag'); ?></span> <span class="lang-text"><?php echo _t('lang_name'); ?></span>
+            </a>
         </div>
+        <div class="header-center">
+            <h3><?php echo htmlspecialchars($req_user, ENT_QUOTES); ?></h3>
+        </div>
+        <div class="header-side header-side-end"></div>
+    </header>
+
+    <main style="display: flex; justify-content: center; align-items: center; width: 100%; min-height: 80vh;">
         <div class="glass-panel text-center" style="width: 90%; max-width: 400px;">
             <h3 class="mb-4 text-white" style="font-family: monospace; font-weight: bold;"><?php echo htmlspecialchars($req_user, ENT_QUOTES); ?></h3>
             <?php if(isset($error)): ?><div class="alert alert-danger py-2 mb-3" style="font-size:0.9rem"><?php echo $error; ?></div><?php endif; ?>
@@ -85,37 +110,41 @@ $links->execute([$u['id']]);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _t('user_page') . " " . htmlspecialchars($u['username'], ENT_QUOTES); ?></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="../style.css">
+    <!-- ضد کش برای استایل کاربر -->
+    <link rel="stylesheet" href="../style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
     <style>
-        .user-nav-custom { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 1000; }
-        .nav-side { flex: 1; display: flex; align-items: center; }
-        .nav-center { flex: 2; text-align: center; }
-        .nav-side-end { justify-content: flex-end; }
-        .btn-logout-user { background: var(--red) !important; color: white !important; }
-        
+        .user-header-glass { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 15px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); position: sticky; top: 0; z-index: 1000; width: 100%; }
+        .header-side { flex: 1; display: flex; align-items: center; }
+        .header-side-end { justify-content: flex-end; }
+        .header-center { flex: 1; text-align: center; }
+        .header-center h3 { margin: 0; font-size: 1.2rem; color: white; font-weight: bold; }
+        .btn-header { text-decoration: none !important; padding: 10px 20px; border-radius: 8px; font-size: 0.95rem; font-weight: bold; transition: 0.3s; color: white !important; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 95px; border: none; }
+        .btn-lang { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .btn-lang:hover { background: rgba(255, 255, 255, 0.2); }
+        .btn-logout-user { background: var(--red); color: white; }
         @media (max-width: 768px) {
-            .user-nav-custom { padding: 10px 5px; }
-            .btn-custom { padding: 10px 15px !important; font-size: 1rem !important; }
-            .nav-center h3 { font-size: 1.1rem !important; margin: 0; }
-            .flag-emoji { font-size: 1.4rem !important; }
+            .user-header-glass { padding: 10px; }
+            .header-center h3 { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .btn-header { padding: 8px 10px; font-size: 0.85rem; min-width: 95px; }
+            .btn-header .lang-text { display: inline; }
         }
     </style>
 </head>
 <body>
-    <nav class="user-nav-custom">
-        <div class="nav-side">
-            <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-custom px-3 py-2" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">
-                <span class="flag-emoji"><?php echo _t('flag'); ?></span> <span class="ms-2 d-none d-sm-inline"><?php echo _t('lang_name'); ?></span>
+    <header class="user-header-glass">
+        <div class="header-side">
+            <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-header btn-lang">
+                <span class="flag-emoji"><?php echo _t('flag'); ?></span> <span class="lang-text"><?php echo _t('lang_name'); ?></span>
             </a>
         </div>
-        <div class="nav-center">
-            <h3 class="text-white fw-bold m-0"><?php echo _t('welcome'); ?></h3>
+        <div class="header-center">
+            <h3><?php echo _t('welcome'); ?></h3>
         </div>
-        <div class="nav-side nav-side-end">
-            <a href="?action=logout" class="btn-custom btn-red px-3 py-2 btn-logout-user"><?php echo _t('logout'); ?></a>
+        <div class="header-side header-side-end">
+            <a href="?action=logout" class="btn-header btn-logout-user"><?php echo _t('logout'); ?></a>
         </div>
-    </nav>
+    </header>
 
     <main class="container pt-4">
         <div class="d-flex justify-content-center mb-5">
@@ -141,7 +170,6 @@ $links->execute([$u['id']]);
         </div>
     </main>
 
-    <!-- فوتر اورجینال شما -->
     <footer class="mt-5">
         <div class="footer-box"><i class="fas fa-heart"></i><span>Made with Love</span></div>
         <div class="footer-box"><i class="fas fa-laptop"></i><span>Up to Date</span></div>
