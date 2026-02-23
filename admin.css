@@ -1,15 +1,15 @@
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
+/* اضافه شدن فونت‌های Vazirmatn برای فارسی و فونت مدرن Poppins برای انگلیسی */
 @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
     --bg-dark: #1a1d21;
     --card-bg: #212529;
     --border-color: #343a40;
     --primary: #0d6efd;
-    --success: #198754; /* رنگ سبز */
+    --success: #198754;
     --danger: #dc3545;
     --warning: #ffc107;
     --text-color: #e9ecef;
@@ -19,13 +19,30 @@
 body {
     background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('bg.jpg') no-repeat center center fixed;
     color: var(--text-color);
-    font-family: 'Vazirmatn', sans-serif;
     margin: 0;
-    direction: rtl;
     padding-bottom: 50px;
 }
 
-/* --- هدر و دکمه خروج --- */
+/*
+   قانون اصلی برای جلوگیری از تداخل جهت‌ها:
+   اگر HTML روی rtl (فارسی) بود این تنظیمات اعمال شود
+*/
+html[dir="rtl"] body {
+    direction: rtl !important;
+    text-align: right;
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+/* اگر HTML روی ltr (انگلیسی) بود این تنظیمات اعمال شود */
+html[dir="ltr"] body {
+    direction: ltr !important;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* =========================================
+   هدر بالا (تغییر زبان، عنوان، خروج)
+   ========================================= */
 .admin-header {
     background: var(--card-bg);
     padding: 15px 20px;
@@ -34,302 +51,224 @@ body {
     justify-content: space-between;
     align-items: center;
 }
-.btn-logout {
-    background: var(--danger);
-    color: white;
+.header-side { flex: 1; display: flex; align-items: center; }
+.header-side-end { justify-content: flex-end; }
+.header-center { flex: 1; text-align: center; }
+.header-center h3 { margin: 0; font-size: 1.2rem; }
+
+.btn-lang, .btn-logout {
     text-decoration: none;
-    padding: 10px 25px;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: bold;
     transition: 0.3s;
 }
+.btn-lang {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    border: 1px solid var(--border-color);
+    display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-lang:hover { background: rgba(255, 255, 255, 0.1); }
+.btn-logout { background: var(--danger); color: white; }
 .btn-logout:hover { background: #bb2d3b; }
 
-/* --- تب‌ها --- */
+.flag-emoji { font-family: "Twemoji Mozilla", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; }
+
+/* =========================================
+   تب‌ها
+   ========================================= */
 .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin: 20px 0;
-    padding: 0 10px;
+    display: flex; justify-content: center; gap: 10px; margin: 20px 0; padding: 0 10px;
 }
 .tab-btn {
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: #aaa;
-    padding: 12px 25px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    font-family: 'Vazirmatn', sans-serif;
+    background: transparent; border: 1px solid var(--border-color); color: #aaa;
+    padding: 12px 25px; border-radius: 8px; cursor: pointer; font-size: 1rem;
+    font-family: inherit; font-weight: 500;
 }
-.tab-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-}
+.tab-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
 .tab-content { display: none; }
-.tab-content.active { display: block; }
+.tab-content.active { display: block; animation: fadeIn 0.3s; }
 
-/* --- کارت یوزر --- */
-.user-card {
-    background: var(--card-bg);
-    margin: 15px auto;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
-    width: 95%;
-    max-width: 1000px; /* کمی عریض‌تر برای جا شدن در دسکتاپ */
-    overflow: hidden;
-    transition: 0.3s;
+/* =========================================
+   مدیریت متن‌ها و فرم‌ها (رفع مشکل راست‌چین انگلیسی)
+   ========================================= */
+html[dir="rtl"] .form-title,
+html[dir="rtl"] .form-container label,
+html[dir="rtl"] .note-text,
+html[dir="rtl"] .user-name-text {
+    text-align: right;
 }
 
+html[dir="ltr"] .form-title,
+html[dir="ltr"] .form-container label,
+html[dir="ltr"] .note-text,
+html[dir="ltr"] .user-name-text {
+    text-align: left;
+}
+
+.form-container {
+    display: flex; flex-direction: column; max-width: 400px; margin: 0 auto; gap: 10px;
+}
+.form-container label { width: 100%; font-weight: 600; margin-bottom: -5px; margin-top: 10px;}
+
+html[dir="rtl"] .text-dir-auto { text-align: right; }
+html[dir="ltr"] .text-dir-auto { text-align: left; }
+
+.text-ltr {
+    direction: ltr !important; text-align: left !important; font-family: monospace; font-size: 0.9rem;
+}
+.input-ltr-type {
+    direction: ltr !important; text-align: left !important; width: 100%; font-family: 'Poppins', sans-serif;
+}
+html[dir="rtl"] .input-ltr-type:placeholder-shown {
+    direction: rtl !important; text-align: right !important; font-family: 'Vazirmatn', sans-serif;
+}
+
+/* =========================================
+   آیکون چشم رمز عبور (رفع مشکل بیرون زدگی)
+   ========================================= */
+.pass-container {
+    position: relative; width: 100%; display: flex; align-items: center;
+}
+.toggle-eye {
+    position: absolute; cursor: pointer; color: #888; z-index: 10; font-size: 1.1rem;
+}
+.toggle-eye:hover { color: white; }
+
+/* چشم سمت چپ در فارسی */
+html[dir="rtl"] .toggle-eye { left: 15px; right: auto; }
+html[dir="rtl"] .pass-container input { padding-left: 45px !important; padding-right: 15px !important; }
+
+/* چشم سمت راست در انگلیسی */
+html[dir="ltr"] .toggle-eye { right: 15px; left: auto; }
+html[dir="ltr"] .pass-container input { padding-right: 45px !important; padding-left: 15px !important; }
+
+/* =========================================
+   کارت کاربر و لیست لینک‌ها
+   ========================================= */
+.user-card {
+    background: var(--card-bg); margin: 15px auto; border-radius: 10px;
+    border: 1px solid var(--border-color); width: 95%; max-width: 1000px;
+    overflow: hidden; transition: 0.3s;
+}
 .user-header {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    background: rgba(255,255,255,0.02);
-    min-height: 50px;
+    padding: 15px; display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; background: rgba(255,255,255,0.02); min-height: 50px;
 }
 .user-header:hover { background: rgba(255,255,255,0.05); }
-
-/* اطلاعات یوزر و فلش */
 .user-info { display: flex; align-items: center; gap: 15px; flex-grow: 1; }
-.user-name-text { font-size: 1.2rem; font-weight: bold; color: white; }
-
+.user-name-text { font-size: 1.2rem; font-weight: bold; color: white; margin: 0; padding: 0;}
 .arrow-icon {
-    width: 32px;
-    height: 32px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-    font-size: 0.8rem;
-    color: #aaa;
+    width: 32px; height: 32px; background: rgba(255,255,255,0.1); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s ease; font-size: 0.8rem; color: #aaa; flex-shrink: 0;
 }
 .user-body.open + .user-header .arrow-icon,
 .user-card.active .arrow-icon { transform: rotate(180deg); background: var(--primary); color: white; }
 
-/* دکمه‌های عملیاتی یوزر (ویرایش/حذف یوزر) */
 .user-actions { display: flex; gap: 8px; }
 .btn-action {
-    padding: 8px 15px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-family: 'Vazirmatn', sans-serif;
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    padding: 10px 15px; border-radius: 6px; border: none; cursor: pointer;
+    color: white; font-family: inherit; font-size: 0.9rem; font-weight: 500; text-decoration: none;
+    display: flex; align-items: center; justify-content: center; gap: 5px;
 }
 .btn-edit { background: var(--warning); color: #000; }
 .btn-del { background: var(--danger); }
 
-/* --- بدنه کارت (بخش لینک‌ها) --- */
-.user-body {
-    display: none;
-    padding: 20px;
-    background: #15171a;
-    border-top: 1px solid var(--border-color);
-}
+.user-body { display: none; padding: 20px; background: #15171a; border-top: 1px solid var(--border-color); }
 .user-body.open { display: block; animation: fadeIn 0.3s; }
 
-/* ردیف لینک‌ها (عمومی) */
 .link-row {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* فاصله یکسان */
-    margin-bottom: 15px;
-    padding: 10px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.05);
+    display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 10px;
+    background: rgba(255,255,255,0.03); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);
 }
+.user-link-row { background: rgba(13, 110, 253, 0.05) !important; border: 1px dashed rgba(13, 110, 253, 0.3) !important; }
+.user-link-label { background: #0d6efd !important; color: white !important; font-weight: bold; }
 
-/* اینپوت‌ها و باکس‌های نمایش */
-.input-name {
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
-    text-align: center;
-    /* عرض در دسکتاپ و موبایل متفاوت تنظیم می‌شود */
+.input-name, .input-url, .link-display-url {
+    background: var(--input-bg); border: 1px solid var(--border-color);
+    color: white; padding: 10px; border-radius: 6px;
 }
-
+.input-name { text-align: center; }
 .input-url, .link-display-url {
-    background: var(--input-bg);
-    border: 1px solid var(--border-color);
-    color: white;
-    padding: 10px;
-    border-radius: 6px;
-    font-family: monospace;
-    direction: ltr;
-    text-align: left;
-    white-space: nowrap;
-    overflow-x: auto;
+    white-space: nowrap; overflow-x: auto;
 }
 .link-display-url { background: rgba(0,0,0,0.3); color: #ccc; }
 
-/* دکمه‌های لینک (افزودن/حذف) */
 .btn-link-action {
-    padding: 10px 0; /* پدینگ عمودی */
-    border-radius: 6px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-family: 'Vazirmatn', sans-serif;
-    text-decoration: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 10px 0; border-radius: 6px; border: none; color: white; cursor: pointer;
+    font-family: inherit; font-weight: 600; text-decoration: none; text-align: center;
+    display: flex; align-items: center; justify-content: center; gap: 8px; /* این خط فاصله ایجاد میکند*/
 }
-.btn-add { background: var(--success); } /* سبز شد */
+.btn-add { background: var(--success); }
 .btn-remove-link { background: var(--danger); }
 
+/* تنظیمات مودال‌ها */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;
+}
+.modal-box { padding: 20px; width: 90%; max-width: 400px; background: #2b3035; }
+.mb-3 { margin-bottom: 15px; }
+
+/* باکس نکته پایین صفحه */
+.admin-note {
+    background: rgba(255, 193, 7, 0.1); border: 1px solid #ffc107; color: #ffc107;
+    padding: 15px; margin: 30px auto; width: 95%; max-width: 900px; border-radius: 10px;
+    display: flex; align-items: flex-start; gap: 15px;
+}
+.note-icon { font-size: 1.5rem; line-height: 1; }
+.note-text { flex-grow: 1; line-height: 1.5; }
+
 /* =========================================
-   نسخه دسکتاپ (تنظیمات دقیق اندازه‌ها)
+   ریسپانسیو (هم‌ترازی تضمینی المان‌ها در دسکتاپ)
    ========================================= */
+.link-actions-group { display: flex; gap: 5px; }
+.link-actions-group .btn-action { flex: 1; padding: 10px 0; font-size: 0.9rem; }
+
 @media (min-width: 769px) {
-    .link-row {
-        justify-content: space-between; /* پخش شدن در عرض */
-    }
-
-    /* 1. باکس نام (اول سمت راست) - اندازه ثابت */
-    .link-row .input-name {
-        order: 1;
-        width: 100px !important; /* عرض ثابت برای همه باکس‌های نام */
-        flex-shrink: 0;
-    }
-
-    /* 2. آدرس لینک (وسط) - پر کردن فضا */
-    .link-row .input-url,
-    .link-row .link-display-url {
-        order: 2;
-        flex-grow: 1;
-        width: auto;
-        margin: 0 10px;
-    }
-
-    /* 3. دکمه‌ها (آخر سمت چپ) - اندازه ثابت */
-    .link-row .btn-link-action {
-        order: 3;
-        width: 100px !important; /* عرض ثابت برای همه دکمه‌ها */
-        flex-shrink: 0;
-    }
+    .link-row { justify-content: space-between; }
+    
+    /* اول: نام لینک */
+    .link-row .input-name, .link-row .user-link-label { order: 1; width: 120px !important; flex-shrink: 0; }
+    
+    /* دوم: آدرس اینترنتی */
+    .link-row .input-url, .link-row .link-display-url { order: 2; flex-grow: 1; width: auto; margin: 0 10px; }
+    
+    /* سوم: ستون دکمه‌ها */
+    .link-row .btn-link-action, .link-row .link-actions-group { order: 3; width: 170px !important; flex-shrink: 0; }
 }
 
-/* =========================================
-   نسخه موبایل (دست‌نخورده طبق درخواست)
-   ========================================= */
 @media (max-width: 768px) {
+    .header-center h3 { font-size: 1rem; }
+    .btn-lang .lang-text { display: none; } /* متن زبان مخفی می‌شود اما پرچم می‌ماند*/
+    .btn-lang, .btn-logout { padding: 6px 12px; font-size: 0.85rem; }
+    
     .user-header { padding: 10px; }
     .user-info { gap: 8px; overflow: hidden; }
     .user-name-text { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .user-actions { gap: 5px; }
     .btn-action { padding: 6px 10px; font-size: 0.8rem; }
-    .btn-action span { display: none; }
+    .btn-action span, .link-actions-group .btn-action span { display: none; }
     
     .link-row { flex-wrap: wrap; gap: 10px; }
+    .input-name, .btn-link-action, .link-actions-group { flex: 1; width: auto; min-width: 150px; }
     
-    .input-name, .btn-link-action {
-        flex: 1;
-        width: auto;
-        min-width: 0;
-    }
-    
-    .input-url, .link-display-url {
-        width: 100%;
-        order: 3;
-        margin-top: 5px;
-    }
-    
-    .btn-remove-link { flex: 1; }
-    .arrow-icon { width: 28px; height: 28px; min-width: 28px; }
+    /* در موبایل آدرس به پایین پرتاب می‌شود */
+    .input-url, .link-display-url { width: 100%; order: 3; margin-top: 5px; }
+}
+
+/* این کلاس مشکل چسبیدن تمام آیکون‌های صفحه ادمین را حل می‌کند */
+.me-2 { margin-inline-end: 8px !important; }
+
+/* برای اینکه در موبایل که متن پاک میشود، آیکون کاملاً وسط دکمه قرار بگیرد */
+@media (max-width: 768px) {
+    .btn-action span, .link-actions-group .btn-action span { display: none; }
+    .btn-action i.me-2 { margin-inline-end: 0 !important; }
 }
 
 @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
-/* --- هماهنگ‌سازی باکس لینک کاربر با ردیف‌های دیگر --- */
-.user-link-row {
-    background: rgba(13, 110, 253, 0.05) !important; /* یک هاله آبی بسیار ملایم */
-    border: 1px dashed rgba(13, 110, 253, 0.3) !important;
-}
 
-.user-link-label {
-    background: #0d6efd !important;
-    color: white !important;
-    font-weight: bold;
-}
-
-/* اصلاح چیدمان دسکتاپ برای این ردیف خاص */
-@media (min-width: 769px) {
-    .user-link-row .user-link-label {
-        order: 1;
-        width: 100px !important; /* هم‌اندازه با باکس "نام لینک" */
-        flex-shrink: 0;
-    }
-    
-    .user-link-row .user-link-url {
-        order: 2;
-        flex-grow: 1;
-        margin: 0 10px;
-    }
-    
-    .user-link-row .btn-copy-link {
-        order: 3;
-        width: 100px !important; /* هم‌اندازه با دکمه‌های عملیاتی */
-        flex-shrink: 0;
-    }
-}
-
-/* =========================================
-   تنظیمات دکمه‌های ویرایش/حذف لینک‌ها
-   ========================================= */
-
-.link-actions-group {
-    display: flex;
-    gap: 5px;
-}
-
-.link-actions-group .btn-action {
-    flex: 1;
-    justify-content: center;
-    padding: 10px 0; /* هم ارتفاع با سایر باکس‌های فرم */
-    font-size: 0.9rem;
-}
-
-/* در دسکتاپ: یکدست کردن اندازه ستون سمت چپ (همه دکمه‌ها) */
-@media (min-width: 769px) {
-    .link-row .link-actions-group {
-        order: 3;
-        width: 170px !important; /* فضای کافی برای قرارگیری 2 دکمه در کنار هم */
-        flex-shrink: 0;
-    }
-    
-    /* برای هم‌تراز ماندن دکمه‌های "اضافه کردن" و "کپی"، سایز آن‌ها هم تنظیم می‌شود */
-    .link-row .btn-link-action {
-        width: 170px !important;
-    }
-}
-
-/* در موبایل: چینش تمیز و ریسپانسیو */
-@media (max-width: 768px) {
-    .link-actions-group {
-        flex: 1;
-        min-width: 150px;
-    }
-    
-    /* در موبایل نوشته دکمه مخفی می‌شود و فقط آیکون می‌ماند تا جا باز شود */
-    .link-actions-group .btn-action span {
-        display: none;
-    }
-}
