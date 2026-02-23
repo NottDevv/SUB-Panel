@@ -42,15 +42,15 @@ main { flex: 1; width: 100%; padding-bottom: 80px; }
 }
 .input-glass:focus { outline: 2px solid var(--orange); border-color: transparent; }
 
-.pass-wrapper { position: relative; width: 100%; }
-.toggle-eye { position: absolute; top: 50%; transform: translateY(-50%); cursor: pointer; color: #aaa; z-index: 10; font-size: 1.1rem;}
+.pass-container { position: relative; width: 100%; display: flex; align-items: center; }
+.toggle-eye { position: absolute; cursor: pointer; color: #aaa; z-index: 10; font-size: 1.1rem; top: 50%; transform: translateY(-50%); }
 .toggle-eye:hover { color: #fff; }
 
 html[dir="rtl"] .toggle-eye { left: 15px; right: auto; }
-html[dir="rtl"] .input-glass { padding-left: 45px !important; padding-right: 15px !important; }
+html[dir="rtl"] .pass-container .input-glass { padding-left: 45px !important; padding-right: 15px !important; }
 
 html[dir="ltr"] .toggle-eye { right: 15px; left: auto; }
-html[dir="ltr"] .input-glass { padding-right: 45px !important; padding-left: 15px !important; }
+html[dir="ltr"] .pass-container .input-glass { padding-right: 45px !important; padding-left: 15px !important; }
 
 .name-badge {
     background: var(--dark-badge); border: 1px solid rgba(255,255,255,0.15);
@@ -69,7 +69,6 @@ html[dir="ltr"] .name-badge { font-family: 'Montserrat', sans-serif; font-size: 
 .btn-red { background: var(--red); }
 .btn-row { display: flex; gap: 10px; width: 100%; margin-top: 15px; }
 
-/* کلید جادویی برای فاصله استاندارد آیکون و متن در کل سایت */
 .me-2 { margin-inline-end: 8px; }
 
 .page-title { color: #f0f0f0 !important; font-weight: 800; margin-bottom: 25px; text-align: center; }
