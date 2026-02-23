@@ -24,7 +24,7 @@ if (!$u) {
 if (isset($_POST['user_pass'])) {
     if (password_verify($_POST['pass'], $u['password'])) {
         $_SESSION['user_auth_'.$req_user] = true;
-    } else { $error = "رمز عبور اشتباه است"; }
+    } else { $error = "Wrong Password"; }
 }
 
 // Show Login Form
@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_auth_'.$req_user])) {
             <?php if(isset($error)): ?><div class="alert alert-danger py-2 mb-3" style="font-size:0.9rem"><?php echo $error; ?></div><?php endif; ?>
             <form method="POST">
                 <div class="pass-wrapper">
-                    <input type="password" name="pass" id="userPass" class="input-glass" placeholder="رمز عبور" required>
+                    <input type="password" name="pass" id="userPass" class="input-glass" placeholder="Password" required>
                     <i class="fas fa-eye" onclick="togglePass()"></i>
                 </div>
                 <button name="user_pass" class="btn-custom btn-lg-custom btn-orange w-100 mt-4">ورود</button>
@@ -91,12 +91,12 @@ $links->execute([$u['id']]);
 </head>
 <body>
     <main class="container pt-5">
-        <h3 class="page-title">دریافت لینک سابسکریپشن</h3>
+        <h3 class="page-title">Subscription Link Page</h3>
         
         <div class="glass-panel d-flex justify-content-between align-items-center gap-2">
             <div class="name-badge flex-grow-1"><?php echo $u['username']; ?></div>
             <!-- دکمه خروج اصلاح شده -->
-            <a href="?action=logout" class="btn-custom btn-lg-custom btn-red px-4">خروج</a>
+            <a href="?action=logout" class="btn-custom btn-lg-custom btn-red px-4">Exit</a>
         </div>
 
         <div class="row justify-content-center">
@@ -131,7 +131,7 @@ $links->execute([$u['id']]);
     </div>
     <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
     <script>
-    function copyTxt(text) { navigator.clipboard.writeText(text); alert("کپی شد!"); }
+    function copyTxt(text) { navigator.clipboard.writeText(text); alert("Copy To Clipboard!"); }
     function showQR(text) {
         document.getElementById('qrcode').innerHTML = "";
         new QRCode(document.getElementById("qrcode"), { text: text, width: 250, height: 250 });
