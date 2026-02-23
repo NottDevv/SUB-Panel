@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🚀 سیستم مدیریت لینک‌های ساب‌اسکریپشن
+# 🚀 سیستم مدیریت لینک‌های ساب‌اسکریپشن [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 </div>
 
