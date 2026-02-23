@@ -14,6 +14,9 @@ $dir = ($lang == 'fa') ? 'rtl' : 'ltr';
 $translations = [
     'en' => [
         'lang_name' => 'فارسی', 'flag' => '🇮🇷', 'next_lang' => 'fa',
+        'login_title' => 'Admin Login', 'login_header' => 'Login to Admin Panel',
+        'username' => 'Username', 'password' => 'Password', 'login_btn' => 'Login',
+        'password_error' => 'Incorrect username or password', 'admin_title' => 'Admin Panel',
         'logout' => 'Logout', 'admin_title' => 'Admin Panel',
         'admin_users_panel' => 'Users Management',
         'user_list' => 'Users List', 'add_user' => 'Add User',
@@ -44,10 +47,14 @@ $translations = [
         'not_found' => 'User Not Found',
         'password_error' => 'Incorrect password',
         'close' => 'Close',
-        'error_duplicate' => 'Error: Username exists.'
+        'error_duplicate' => 'Error: Username exists.',
+        'login_title' => 'Admin Panel Login'
     ],
     'fa' => [
         'lang_name' => 'English', 'flag' => '🇺🇸', 'next_lang' => 'en',
+        'login_title' => 'ورود مدیریت', 'login_header' => 'ورود به پنل مدیریت',
+        'username' => 'نام کاربری', 'password' => 'رمز عبور', 'login_btn' => 'ورود',
+        'password_error' => 'نام کاربری یا رمز عبور اشتباه است', 'admin_title' => 'پنل مدیریت',
         'logout' => 'خروج', 'admin_title' => 'پنل مدیریت',
         'admin_users_panel' => 'پنل مدیریت کاربرها',
         'user_list' => 'لیست کاربران', 'add_user' => 'افزودن کاربر',
@@ -78,7 +85,9 @@ $translations = [
         'not_found' => 'کاربر یافت نشد',
         'password_error' => 'رمز عبور اشتباه است',
         'close' => 'بستن',
-        'error_duplicate' => 'خطا: نام کاربری تکراری است.'
+        'error_duplicate' => 'خطا: نام کاربری تکراری است.',
+        'login_title' => 'ورود به پنل مدیریت'
+
     ]
 ];
 
