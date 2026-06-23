@@ -8,6 +8,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
+// ساخت توکن امنیتی CSRF
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf = $_SESSION['csrf_token'];
+
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
 $base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
 $admin_error = "";
@@ -40,6 +46,10 @@ if (isset($_POST['add_user'])) {
 }
 
 if (isset($_GET['delete_user'])) {
+    // بررسی توکن امنیتی
+    if (!isset($_GET['csrf']) || !hash_equals($_SESSION['csrf_token'], $_GET['csrf'])) {
+        die("CSRF Token Verification Failed.");
+    }
     $uid = $_GET['delete_user'];
     $db->prepare("DELETE FROM links WHERE user_id = ?")->execute([$uid]);
     $db->prepare("DELETE FROM users WHERE id = ?")->execute([$uid]);
@@ -67,6 +77,10 @@ if (isset($_POST['add_link'])) {
 }
 
 if (isset($_GET['delete_link'])) {
+    // بررسی توکن امنیتی
+    if (!isset($_GET['csrf']) || !hash_equals($_SESSION['csrf_token'], $_GET['csrf'])) {
+        die("CSRF Token Verification Failed.");
+    }
     $db->prepare("DELETE FROM links WHERE id = ?")->execute([$_GET['delete_link']]);
     header("Location: admin"); exit;
 }
@@ -85,8 +99,8 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _t('admin_title'); ?></title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- اضافه شدن ترفند کش باسینگ برای جلوگیری از گیر کردن استایل در موبایل -->
     <link rel="stylesheet" href="admin.css?v=<?php echo time(); ?>">
 </head>
 <body>
@@ -121,18 +135,21 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                 </div>
                 <div class="user-actions" onclick="event.stopPropagation()">
                     <button onclick="openEditModal(<?php echo $u['id']; ?>, '<?php echo htmlspecialchars($u['username'], ENT_QUOTES); ?>')" class="btn-action btn-edit"><i class="fas fa-edit"></i> <span><?php echo _t('edit'); ?></span></button>
-                    <a href="?delete_user=<?php echo $u['id']; ?>" class="btn-action btn-del" onclick="return confirm('<?php echo _t('del_confirm'); ?>')"><i class="fas fa-trash"></i> <span><?php echo _t('delete'); ?></span></a>
+                    <a href="?delete_user=<?php echo $u['id']; ?>&csrf=<?php echo $csrf; ?>" class="btn-action btn-del" onclick="return confirm('<?php echo _t('del_confirm'); ?>')"><i class="fas fa-trash"></i> <span><?php echo _t('delete'); ?></span></a>
                 </div>
             </div>
 
             <div id="body-<?php echo $u['id']; ?>" class="user-body">
-                <?php $userLink = $base_url . "/u/" . $u['username']; ?>
+                <?php 
+                $userLink = $base_url . "/u/" . $u['username']; 
+                $safeUserLink = htmlspecialchars($userLink, ENT_QUOTES); // ایمن‌سازی لینک خروجی برای جلوگیری از XSS
+                ?>
                 <div class="link-row user-link-row">
                     <div class="input-name user-link-label"><?php echo _t('user_page'); ?></div>
-                    <div class="link-display-url text-ltr" style="color: #6ea8fe; cursor: pointer; flex-grow:1;" onclick="window.open('<?php echo $userLink; ?>', '_blank')">
-                        <?php echo $userLink; ?>
+                    <div class="link-display-url text-ltr" style="color: #6ea8fe; cursor: pointer; flex-grow:1;" onclick="window.open('<?php echo $safeUserLink; ?>', '_blank')">
+                        <?php echo $safeUserLink; ?>
                     </div>
-                    <button onclick="copyToClipboard('<?php echo $userLink; ?>')" class="btn-link-action btn-add" style="background: #198754;">
+                    <button onclick="copyToClipboard('<?php echo $safeUserLink; ?>')" class="btn-link-action btn-add" style="background: #198754;">
                         <i class="fas fa-copy"></i> <span><?php echo _t('copy'); ?></span>
                     </button>
                 </div>
@@ -158,7 +175,7 @@ $users = $db->query("SELECT * FROM users WHERE role = 'user' ORDER BY username A
                         <button type="button" onclick="openEditLinkModal(<?php echo $l['id']; ?>, '<?php echo htmlspecialchars(addslashes($l['title']), ENT_QUOTES); ?>', '<?php echo htmlspecialchars(addslashes($l['url']), ENT_QUOTES); ?>')" class="btn-action btn-edit">
                             <i class="fas fa-edit"></i> <span><?php echo _t('edit'); ?></span>
                         </button>
-                        <a href="?delete_link=<?php echo $l['id']; ?>" class="btn-action btn-del" onclick="return confirm('<?php echo _t('del_link_confirm'); ?>')">
+                        <a href="?delete_link=<?php echo $l['id']; ?>&csrf=<?php echo $csrf; ?>" class="btn-action btn-del" onclick="return confirm('<?php echo _t('del_link_confirm'); ?>')">
                             <i class="fas fa-trash"></i> <span><?php echo _t('delete'); ?></span>
                         </a>
                     </div>
