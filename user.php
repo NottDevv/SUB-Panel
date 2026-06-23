@@ -4,8 +4,9 @@ include 'lang.php';
 include 'db.php';
 $req_user = $_GET['username'];
 
+// منطق جدید لاگ اوت بر اساس سشن یکپارچه
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-    unset($_SESSION['user_auth_'.$req_user]);
+    unset($_SESSION['authenticated_user']);
     header("Location: ../u/" . $req_user);
     exit;
 }
@@ -17,17 +18,19 @@ $u = $stmt->fetch();
 $bs_css = ($dir == 'rtl') ? 'bootstrap.rtl.min.css' : 'bootstrap.min.css';
 
 if (!$u) {
-    echo "<!DOCTYPE html><html lang='{$lang}' dir='{$dir}'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='stylesheet' href='../style.css'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/{$bs_css}'></head><body><main style='display:flex; justify-content:center; align-items:center; height:100vh;'><div class='glass-panel text-center' style='width:90%; max-width:400px;'><h3 class='text-white'>" . _t('not_found') . "</h3></div></main></body></html>";
+    echo "<!DOCTYPE html><html lang='{$lang}' dir='{$dir}'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width, initial-scale=1.0'><link rel='icon' type='image/x-icon' href='../favicon.ico'><link rel='stylesheet' href='../style.css'><link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/{$bs_css}'></head><body><main style='display:flex; justify-content:center; align-items:center; height:100vh;'><div class='glass-panel text-center' style='width:90%; max-width:400px;'><h3 class='text-white'>" . _t('not_found') . "</h3></div></main></body></html>";
     exit;
 }
 
+// ثبت سشن یکپارچه به نام کاربر لاگین شده
 if (isset($_POST['user_pass'])) {
     if (password_verify($_POST['pass'], $u['password'])) {
-        $_SESSION['user_auth_'.$req_user] = true;
+        $_SESSION['authenticated_user'] = $u['username'];
     } else { $error = _t('password_error'); }
 }
 
-if (!isset($_SESSION['user_auth_'.$req_user])) {
+// بررسی اینکه آیا سشن متعلق به همین کاربری است که در URL درخواست شده یا خیر
+if (!isset($_SESSION['authenticated_user']) || $_SESSION['authenticated_user'] !== $req_user) {
 ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>" dir="<?php echo $dir; ?>">
@@ -35,8 +38,8 @@ if (!isset($_SESSION['user_auth_'.$req_user])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $req_user; ?></title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- ضد کش برای استایل کاربر -->
     <link rel="stylesheet" href="../style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
     <style>
@@ -109,8 +112,8 @@ $links->execute([$u['id']]);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _t('user_page') . " " . htmlspecialchars($u['username'], ENT_QUOTES); ?></title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- ضد کش برای استایل کاربر -->
     <link rel="stylesheet" href="../style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
     <style>
