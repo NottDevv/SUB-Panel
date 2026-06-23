@@ -36,6 +36,7 @@ $bs_css = ($dir == 'rtl') ? 'bootstrap.rtl.min.css' : 'bootstrap.min.css';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo _t('login_title'); ?></title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/<?php echo $bs_css; ?>">
@@ -65,7 +66,6 @@ $bs_css = ($dir == 'rtl') ? 'bootstrap.rtl.min.css' : 'bootstrap.min.css';
 </head>
 <body class="d-flex flex-column" style="min-height: 100vh;">
 
-    <!-- دکمه تغییر زبان بالای صفحه -->
     <div class="user-page-header px-4 pt-3">
         <div class="header-side">
             <a href="?setlang=<?php echo _t('next_lang'); ?>" class="btn-lang" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 8px; text-decoration: none; color: white; display: inline-flex; align-items: center; gap: 8px;">
