@@ -7,7 +7,9 @@ $req_user = $_GET['username'];
 // منطق جدید لاگ اوت بر اساس سشن یکپارچه
 if (isset($_GET['action']) && $_GET['action'] == 'logout') {
     unset($_SESSION['authenticated_user']);
-    header("Location: ../u/" . $req_user);
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+    $script_dir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+    header("Location: {$protocol}://{$_SERVER['HTTP_HOST']}{$script_dir}/u/" . $req_user);
     exit;
 }
 
