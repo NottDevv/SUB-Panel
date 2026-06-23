@@ -15,7 +15,9 @@ if (empty($_SESSION['csrf_token'])) {
 $csrf = $_SESSION['csrf_token'];
 
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
+// این خط جدید مسیر فولدری که فایل در آن قرار دارد را پیدا می‌کند (مثل /asset)
+$script_dir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$base_url = $protocol . "://" . $_SERVER['HTTP_HOST'] . $script_dir;;
 $admin_error = "";
 
 // --- عملیات مدیریت ادمین ---
